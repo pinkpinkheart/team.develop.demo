@@ -1,7 +1,34 @@
-# 管理员需要具备的 git 能力
+管理员需要具备的 git 能力
 
-## 什么样的代码可以被 merge ?
+1. 什么样的代码可以被 merge ?
 
-## 如何在一台电脑上运行两个不同的 GitHub 账户 ?
+2. 如何在一台电脑上运行两个不同的 GitHub 账户 ?
 
 作为管理员, 就接管了 EmbeddedStudio 这里账户了, 责任重大. 但是, 同时又要使用自己的 GitHub 账户给 Studio 贡献代码, 那就得实现 git 的多开.
+
+具体步骤如下:
+
+1) 创建两对 SSH KEY
+2) 将两对 KEY 分别添加到个人账户和 studio 账户中
+3) 创建一个 config 文件
+
+        Host mz8023yt
+        HostName github.com
+        PreferredAuthentications publickey
+        IdentityFile ~/.ssh/id_rsa_mz8023yt
+        User git
+
+        Host studio
+        HostName github.com
+        PreferredAuthentications publickey
+        IdentityFile ~/.ssh/id_rsa_studio
+        User git
+
+4) 拉取代码时注意代码路径需要变更
+   eg.  git@github.com:EmbeddedStudio/team.develop.demo.git
+        ------> studio:EmbeddedStudio/team.develop.demo.git
+        
+5) 拉取代码之后, 需要配置当前工程的 user.name 和 user.email
+   $ git config user.name studio
+   $ git config user.email EmbeddedStudio@163.com
+
